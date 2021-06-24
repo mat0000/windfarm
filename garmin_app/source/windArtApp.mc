@@ -3,8 +3,7 @@ using Toybox.WatchUi as Ui;
 using Toybox.System;
 using Toybox.Communications;
 using Toybox.Lang as Lang;
-using Toybox.Time.Gregorian as Gregorian;
-using Toybox.Graphics as Gfx;
+
 
 
 const URL = "https://api.data.gov.sg/v1/environment/wind-speed";
