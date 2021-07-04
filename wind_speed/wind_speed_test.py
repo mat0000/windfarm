@@ -28,5 +28,6 @@ while True:
     if(adc_current != chan.value):
         wind_count = wind_count + 1
         print("spin" + str(wind_count))
-        time.sleep(0.01)
+        adc_current = chan.value
+    time.sleep(0.01)
 
