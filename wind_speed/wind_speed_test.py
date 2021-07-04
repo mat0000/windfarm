@@ -21,7 +21,7 @@ mcp = MCP.MCP3008(spi, cs)
 # create an analog input channel on pin 0
 chan = AnalogIn(mcp, MCP.P2)
 
-wind_speed_sensor = Button(chan)
+wind_speed_sensor = Button(3)
 
 wind_count = 0
 
