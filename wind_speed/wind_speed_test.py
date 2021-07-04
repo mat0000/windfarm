@@ -21,10 +21,10 @@ mcp = MCP.MCP3008(spi, cs)
 chan = AnalogIn(mcp, MCP.P2)
 
 while True:
-    cs.direction = digitalio.Direction.INPUT
-    cs.value
+    chan.direction = digitalio.Direction.INPUT
+    chan.value
 
-    if cs.direction:
+    if chan.direction:
         print("on")
     else:
         print("off")
