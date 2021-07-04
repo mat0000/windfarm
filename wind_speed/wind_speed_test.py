@@ -57,7 +57,8 @@ def get_wind_speed(interval_wind, interval_gust):
     t_end = time.time() + interval_wind
     while time.time() < t_end:
         gust_speed = convert_to_kmh(spin_frequency(interval_gust))
-        print("Gust: " + str(gust_speed) + "km/h")
+        gust_speed = round(gust_speed, 1)
+        print(str(interval_gust) + "s speed: " + str(gust_speed) + " km/h")
         gust_speeds.append(gust_speed)
     
     wind_average = statistics.mean(gust_speeds)
@@ -65,5 +66,5 @@ def get_wind_speed(interval_wind, interval_gust):
     return([wind_average, wind_gust])
 
 wind_speed = get_wind_speed(interval_wind, interval_gust)
-print("wind speed: " + str(wind_speed[0]) + "km/h")
-print("wind gust: " + str(wind_speed[1]) + "km/h")
+print("wind speed: " + str(round(wind_speed[0], 1)) + " km/h")
+print("wind gust: " + str(round(wind_speed[1], 1)) + " km/h")
