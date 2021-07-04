@@ -66,5 +66,5 @@ def get_wind_speed(interval_wind, interval_gust):
     return([wind_average, wind_gust])
 
 wind_speed = get_wind_speed(interval_wind, interval_gust)
-print("wind speed: " + str(round(wind_speed[0], 1)) + " km/h")
-print("wind gust: " + str(round(wind_speed[1], 1)) + " km/h")
+print("Wind speed: " + str(round(wind_speed[0], 1)) + " km/h")
+print("Gust speed: " + str(round(wind_speed[1], 1)) + " km/h")
