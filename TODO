@@ -1,0 +1,30 @@
+- database setup + connection details --mat
+- wind speed + db entry --art
+- wind direction + db entry --art
+- db design --art + mat
+- new adc --mat
+- cam - photo or stream? where and how to store? history? --mat
+- temp + db entry --mat 
+- auto pull + execution (CI/CD) --mat
+- execution schedule
+
+later:
+- api
+- website
+- graphs with history
+- garmin new api
+- new domain + https
+- logistic and installation 
+- server command execution behaind the NAT
+
+
+#technologies to use:
+###Python
+###Bash
+###Flask
+###Git
+###Linux/Raspberry
+###Postgresql
+###CI/CD
+###html/css/javascript
+###swagger
