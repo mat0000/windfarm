@@ -7,6 +7,7 @@ import digitalio
 import board
 import adafruit_mcp3xxx.mcp3008 as MCP
 from adafruit_mcp3xxx.analog_in import AnalogIn
+from gpiozero import Button
 
 # create the spi bus
 spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
@@ -18,14 +19,13 @@ cs = digitalio.DigitalInOut(board.D5)
 mcp = MCP.MCP3008(spi, cs)
 
 # create an analog input channel on pin 0
-# chan = AnalogIn(mcp, MCP.P2)
+chan = AnalogIn(mcp, MCP.P2)
 
-while True:
-    cs.direction = digitalio.Direction.INPUT
-    cs.value
+wind_count = 0
 
-    if cs.direction:
-        print("on")
-    else:
-        print("off")
-    time.sleep(0.1)
+def spin():
+    global wind_count
+    wind_count = wind_count + 1
+    print("spin" + str(wind_count))
+
+chan.when_pressed = spin
