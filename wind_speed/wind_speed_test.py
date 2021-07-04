@@ -34,8 +34,9 @@ def spin(value):
 def spin_frequency(interval):
     wind_count = 0 # spin counter
     spin_prev = 0 # signal change 
+    t_end = time.time() + interval
     while time.time() < t_end:
-        t_end = time.time() + interval
+        
         # detect signal change
         if(spin_prev != spin(chan.value)):
             wind_count = wind_count + 1
