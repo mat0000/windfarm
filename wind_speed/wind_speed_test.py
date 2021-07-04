@@ -3,7 +3,7 @@
 
 import time
 import busio
-import digitalio
+import digitalio import DigitalInOut, Direction, Pull
 import board
 import adafruit_mcp3xxx.mcp3008 as MCP
 from adafruit_mcp3xxx.analog_in import AnalogIn
@@ -18,13 +18,14 @@ cs = digitalio.DigitalInOut(board.D5)
 mcp = MCP.MCP3008(spi, cs)
 
 # create an analog input channel on pin 0
-chan = AnalogIn(mcp, MCP.P2)
+# chan = AnalogIn(mcp, MCP.P2)
 
 while True:
-    chan.direction = digitalio.Direction.INPUT
-    chan.value
+    cs.direction = digitalio.Direction.INPUT
+    cs.value
 
     if chan.direction:
         print("on")
     else:
         print("off")
+    time.sleep(0.1)
