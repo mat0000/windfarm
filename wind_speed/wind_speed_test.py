@@ -32,11 +32,11 @@ def spin(value):
     else:
         return 0
 
-def spin_frequency(interval_gust):
+def spin_frequency(interval):
 
     wind_count = 0 # spin counter
     spin_prev = 0 # signal change 
-    t_end = time.time() + interval_gust
+    t_end = time.time() + interval
     while time.time() < t_end:
         
         # detect signal change
