@@ -24,7 +24,7 @@ while True:
     cs.direction = digitalio.Direction.INPUT
     cs.value
 
-    if chan.direction:
+    if cs.direction:
         print("on")
     else:
         print("off")
