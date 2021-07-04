@@ -2,21 +2,23 @@
 - wind speed + db entry --art
 - wind direction + db entry --art
 - db design --art + mat
-- new adc --mat
+
+- new adc + wiring --mat
 - cam - photo or stream? where and how to store? history? --mat
 - temp + db entry --mat 
 - auto pull + execution (CI/CD) --mat
 - execution schedule
 - DB backup, configuration, cluster?
 
+
 later:
 - api
 - website
-- graphs with history
-- garmin new api
-- new domain + https
+- graphs with history --art
+- garmin new api --art
+- new domain + https --mat
 - logistic and installation 
-- server command execution behaind the NAT
+- server command execution behaind the NAT --mat
 
 
 #technologies to use:
