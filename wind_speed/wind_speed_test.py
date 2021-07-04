@@ -43,5 +43,5 @@ def spin_frequency(interval):
             spin_prev = spin(chan.value)
     return(wind_count)
 
-wind_count = spin_frequency()
+wind_count = spin_frequency(interval)
 print("spins: " + str(wind_count))
