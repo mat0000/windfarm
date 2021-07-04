@@ -22,7 +22,7 @@ mcp = MCP.MCP3008(spi, cs)
 chan = AnalogIn(mcp, MCP.P2)
 
 
-interval = 10 # measurement interval (in seconds)
+interval = 5 # measurement interval (in seconds)
 
 # make binary readout
 def spin(value):
@@ -42,7 +42,7 @@ def spin_frequency(interval):
             wind_count = wind_count + 1
             print("spin: " + str(wind_count))
             spin_prev = spin(chan.value)
-    return(wind_count)
+    return(wind_count / interval)
 
-wind_count = spin_frequency(interval)
-print("spins: " + str(wind_count))
+wind_freq = spin_frequency(interval)
+print("wind frequency: " + str(wind_freq))
