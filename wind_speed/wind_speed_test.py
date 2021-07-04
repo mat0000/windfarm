@@ -41,13 +41,13 @@ def spin_frequency(interval):
     while time.time() < t_end:
         
         # detect signal change
-        if(spin_prev != spin(chan.value)):
+        if(spin_prev != spin(chan.value)): # two changes for 1 pulse!
             wind_count = wind_count + 1
             # print("spin: " + str(wind_count))
             spin_prev = spin(chan.value)
 
     # NEED ADDITIONAL CALIBRATION (use fixed number of rotations)
-    return(wind_count / interval)
+    return(wind_count / interval / 2)
 
 def convert_to_kmh(frequency):
     kmh = frequency * 0.34 * 3.6
