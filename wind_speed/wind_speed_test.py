@@ -21,6 +21,8 @@ mcp = MCP.MCP3008(spi, cs)
 # create an analog input channel on pin 0
 chan = AnalogIn(mcp, MCP.P2)
 
+wind_speed_sensor = Button(chan)
+
 wind_count = 0
 
 def spin():
@@ -28,4 +30,4 @@ def spin():
     wind_count = wind_count + 1
     print("spin" + str(wind_count))
 
-chan.when_pressed = spin
+wind_speed_sensor.when_pressed = spin
