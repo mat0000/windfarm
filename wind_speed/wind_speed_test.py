@@ -20,11 +20,11 @@ mcp = MCP.MCP3008(spi, cs)
 # create an analog input channel on pin 0
 chan = AnalogIn(mcp, MCP.P2)
 
+while True:
+    cs.direction = digitalio.Direction.INPUT
+    cs.value
 
-cs.direction = digitalio.Direction.INPUT
-cs.value
-
-if cs.direction:
-    print("on")
-else:
-    print("off")
+    if cs.direction:
+        print("on")
+    else:
+        print("off")
