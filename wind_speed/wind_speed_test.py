@@ -6,8 +6,8 @@ import busio
 import digitalio
 import board
 import adafruit_mcp3xxx.mcp3008 as MCP
+import statistics
 from adafruit_mcp3xxx.analog_in import AnalogIn
-from gpiozero import Button
 
 # create the spi bus
 spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
@@ -22,7 +22,8 @@ mcp = MCP.MCP3008(spi, cs)
 chan = AnalogIn(mcp, MCP.P2)
 
 
-interval = 5 # measurement interval (in seconds)
+interval_gust = 5 # gust measurement interval (in seconds)
+interval_wind = 60
 
 # make binary readout
 def spin(value):
@@ -31,10 +32,11 @@ def spin(value):
     else:
         return 0
 
-def spin_frequency(interval):
+def spin_frequency(interval_gust):
+
     wind_count = 0 # spin counter
     spin_prev = 0 # signal change 
-    t_end = time.time() + interval
+    t_end = time.time() + interval_gust
     while time.time() < t_end:
         
         # detect signal change
@@ -42,9 +44,24 @@ def spin_frequency(interval):
             wind_count = wind_count + 1
             # print("spin: " + str(wind_count))
             spin_prev = spin(chan.value)
+
+    # NEED ADDITIONAL CALIBRATION (use fixed number of rotations)
     return(wind_count / interval)
 
-wind_freq = spin_frequency(interval)
-print("wind frequency: " + str(wind_freq) + "Hz")
-print("wind speed: " + str(wind_freq * 0.34) + "m/s")
-print("wind speed: " + str(wind_freq * 0.34 * 3.6) + "km/h")
+def convert_to_kmh(frequency):
+    kmh = frequency * 0.34 * 3.6
+    return(kmh)
+
+def get_wind_speed(interval_wind, interval_gust):
+    store_speeds = []
+    t_end = time.time() + interval_wind
+    while time.time() < t_end:
+        gust_speeds.append.convert_to_kmh(spin_frequency(interval_gust))
+    
+    wind_average = statistics.mean(store_speeds)
+    wind_gust = max(store_speeds)
+    return([wind_average, wind_gust])
+
+wind_speed = get_wind_speed(interval_wind, interval_gust)
+print("wind speed: " + str(wind_speed[0]) + "km/h")
+print("wind gust: " + str(wind_speed[1]) + "km/h")
