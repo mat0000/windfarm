@@ -40,9 +40,11 @@ def spin_frequency(interval):
         # detect signal change
         if(spin_prev != spin(chan.value)):
             wind_count = wind_count + 1
-            print("spin: " + str(wind_count))
+            # print("spin: " + str(wind_count))
             spin_prev = spin(chan.value)
     return(wind_count / interval)
 
 wind_freq = spin_frequency(interval)
-print("wind frequency: " + str(wind_freq))
+print("wind frequency: " + str(wind_freq) + "Hz")
+print("wind speed: " + str(wind_freq * 0.34) + "m/s")
+print("wind speed: " + str(wind_freq * 0.34 * 3.6) + "km/h")
