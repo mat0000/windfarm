@@ -22,14 +22,20 @@ mcp = MCP.MCP3008(spi, cs)
 chan = AnalogIn(mcp, MCP.P2)
 
 wind_count = 0
-adc_current = chan.value
+spin_prev = 0
+
+def spin(value):
+    if(value == 65472):
+        return 1
+    else:
+        return 0
 
 while True:
-    if(adc_current != chan.value):
+    if(spin_prev != spin(chan.value)):
         wind_count = wind_count + 1
         print("spin: " + str(wind_count))
         print("val: " + str(chan.value))
-        adc_current = chan.value
+        spin_prev = spin(chan.value)
     else:
         print("val: " + str(chan.value))
     time.sleep(0.01)
