@@ -1,4 +1,4 @@
-- database setup + connection details --mat
+- database setup + connection and access details --mat
 - wind speed + db entry --art
 - wind direction + db entry --art
 - db design --art + mat
@@ -7,6 +7,7 @@
 - temp + db entry --mat 
 - auto pull + execution (CI/CD) --mat
 - execution schedule
+- DB backup, configuration, cluster?
 
 later:
 - api
