@@ -4,24 +4,24 @@
 import time
 import datetime
 import statistics
+import math
 import busio
 import digitalio
 import board
 import adafruit_mcp3xxx.mcp3008 as MCP
 from adafruit_mcp3xxx.analog_in import AnalogIn
 
-# create the spi bus
+# connection
 spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
-
-# create the cs (chip select)
 cs = digitalio.DigitalInOut(board.D5)
-
-# create the mcp object
 mcp = MCP.MCP3008(spi, cs)
+chan_direction = AnalogIn(mcp, MCP.P3)
 
-# create an analog input channel on pin 0
-chan = AnalogIn(mcp, MCP.P3)
+# setup 
+interval_gust = 2.5 # gust measurement interval (in seconds)
+interval_wind = 10 # wind measurement interval (in seconds)
 
+# map volt: angle 
 volts = {
     2.5: 0,
     1.5: 45,
@@ -63,12 +63,9 @@ def get_direction():
     t_end = time.time() + 3 # time window
     data = []
     while time.time() < t_end:
-        voltage = round(chan.voltage, 1)
-        if not voltage in volts:
-            print('Unknown value: ' + str(voltage))
-        else:
+        voltage = round(chan_direction.voltage, 1)
+        if voltage in volts:
             data.append(volts[voltage])
-            print('Match: ' +  str(voltage) + ' ' + str(volts[voltage]))
     return(get_average(data))
 
 print('direction angle ' + str(get_direction()))
