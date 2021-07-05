@@ -112,7 +112,7 @@ while True:
             gust_speed = max(gust_speeds)
 
             # wind direction as average angle over long time period
-            wind_direction = get_average(gust_directions)
+            wind_direction = round(get_average(gust_directions), 0)
 
             print(datetime.datetime.now().time())
             print('Wind speed: ' + str(wind_speed) + ' kmh.')
