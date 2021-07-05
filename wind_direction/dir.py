@@ -38,7 +38,7 @@ volts = {
 # while time.time() < t_end:
 
 while True:
-    voltage = voltage.append(round(chan.voltage, 1))
+    voltage = round(chan.voltage, 1)
 
     if not voltage in volts:
         print('Unknown value: ' + str(direction) + ' ' + str(volts[voltage]))
