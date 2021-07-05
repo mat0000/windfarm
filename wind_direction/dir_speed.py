@@ -104,7 +104,7 @@ def get_speed_gusts_dir():
         gust_directions.append(data[1])
     
     # wind as average of gusts
-    wind_speed = statistics.mean(gust_speeds)
+    wind_speed = round(statistics.mean(gust_speeds), 1)
 
     # gusts as max gust speed
     gust_speed = max(gust_speeds)
