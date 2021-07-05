@@ -97,6 +97,28 @@ def get_speed_dir():
     direction = get_average(directions)
     return([speed, direction])
 
+# function to get wind and gust speed (in kmh) and wind direction (degrees)
+def get_speed_gusts_dir():
+    gust_speeds = []
+    gust_directions = []
+    t_end = time.time() + interval_wind # define time window
+    while time.time() < t_end:
+        data = get_speed_dir()
+        gust_speeds.append(data[0])
+        gust_directions.append(data[1])
+    
+    # wind as average of gusts
+    wind_speed = round(statistics.mean(gust_speeds), 1)
+
+    # gusts as max gust speed
+    gust_speed = max(gust_speeds)
+
+    # wind direction as average angle over long time period
+    wind_direction = round(get_average(gust_directions))
+
+    # return vector: average wind speed, gust speed (kmh) and direction (angle)
+    return([wind_speed, gust_speed, wind_direction])
+    
 # insert into DB
 def insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction):
     
