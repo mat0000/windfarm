@@ -23,8 +23,8 @@ chan_direction = AnalogIn(mcp, MCP.P3)
 chan_speed = AnalogIn(mcp, MCP.P2)
 
 # setup 
-interval_gust = 2.5 # gust measurement interval (in seconds)
-interval_wind = 10 # wind measurement interval (in seconds)
+interval_gust = 2 # gust measurement interval (in seconds)
+interval_wind = 4 # wind measurement interval (in seconds)
 
 # map volt: angle 
 volts = {2.5: 0, 1.5: 45, 0.3: 90, 0.6: 135, 0.9: 180, 2.0: 225, 3.0: 270, 2.9: 315}
@@ -130,42 +130,24 @@ def insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction):
 # collect data and insert into DB
 print('Collecting data using ' + str(interval_wind) + 's time window...')
 
-gust_speeds = []
-gust_directions = []
 while True:
-    t_end = time.time() + interval_wind # define time window
-    while time.time() < t_end:
-        data = get_speed_dir()
-        gust_speeds.append(data[0])
-        gust_directions.append(data[1])
+    data = get_speed_gusts_dir()
+    wind_speed = data[0]
+    gust_speed = data[1]
+    wind_direction = data[2]
+    time_cur = datetime.datetime.now()
+    time_cur = time_cur - datetime.timedelta(microseconds=time_cur.microsecond)
 
-        if(len(gust_speeds) == round((interval_wind / interval_gust), 0)):
-            # wind as average of gusts
-            wind_speed = round(statistics.mean(gust_speeds), 1)
+    print('Time stamp: ' + str(time_cur))
+    print('Wind speed: ' + str(wind_speed) + ' kmh.')
+    print('Gust speed: ' + str(gust_speed) + ' kmh.')
 
-            # gusts as max gust speed
-            gust_speed = max(gust_speeds)
+    if wind_direction in directions:
+        print('Wind direction: ' + str(wind_direction) + ' degrees (' + directions[wind_direction] + ')')
+    else:
+        print('Wind direction: ' + str(wind_direction) + ' degrees.')
 
-            # wind direction as average angle over long time period
-            wind_direction = round(get_average(gust_directions))
-
-            # time
-            time_cur = datetime.datetime.now()
-            time_cur = time_cur - datetime.timedelta(microseconds=time_cur.microsecond)
-
-            print('Wind speed: ' + str(wind_speed) + ' kmh.')
-            print('Gust speed: ' + str(gust_speed) + ' kmh.')
-
-            if wind_direction in directions:
-                print('Wind direction: ' + str(wind_direction) + ' degrees (' + directions[wind_direction] + ')')
-            else:
-                print('Wind direction: ' + str(wind_direction) + ' degrees.')
-
-            # remove first element from speed and direction
-            gust_speeds.pop(0)
-            gust_directions.pop(0) 
-
-            # insert into DB
-            if __name__ == '__main__':
-                insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction)
+    # insert into DB
+    if __name__ == '__main__':
+        insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction)
             
