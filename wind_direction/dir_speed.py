@@ -96,7 +96,6 @@ def get_speed_gusts_dir():
     gust_directions = []
     t_end = time.time() + interval_wind # define time window
     while time.time() < t_end:
-        print(datetime.datetime.now().time())
         data = get_speed_dir()
         gust_speeds.append(data[0])
         gust_directions.append(data[1])
@@ -113,7 +112,9 @@ def get_speed_gusts_dir():
     # return vector: average wind speed, gust speed (kmh) and direction (angle)
     return([wind_speed, gust_speed, wind_direction])
 
+print('Collecting data using ' + str(interval_wind) + 's time window.')
 data = get_speed_gusts_dir()
+print(datetime.datetime.now().time())
 print('Wind speed: ' + str(data[0]) + ' kmh.')
 print('Gust speed: ' + + str(data[1]) + ' kmh.')
 print('Wind direction: ' + str(data[2]) + " degrees.")
