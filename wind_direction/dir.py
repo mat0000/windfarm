@@ -41,6 +41,7 @@ while True:
     voltage = round(chan.voltage, 1)
 
     if not voltage in volts:
-        print('Unknown value: ' + str(voltage) + ' ' + str(volts[voltage]))
+        print('Unknown value: ' + str(voltage))
     else:
         print('Match: ' +  str(voltage) + ' ' + str(volts[voltage]))
+    time.sleep(0.1)
