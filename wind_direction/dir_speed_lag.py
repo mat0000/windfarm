@@ -97,7 +97,7 @@ print('Collecting data using ' + str(interval_wind) + 's time window...')
 
 gust_speeds = []
 gust_directions = []
-
+print('Collecting data using ' + str(interval_wind) + 's time window...')
 while True:
     t_end = time.time() + interval_wind # define time window
     while time.time() < t_end:
@@ -122,7 +122,6 @@ while True:
 
             # remove first element from speed and direction
             gust_speeds.pop(0)
-            gust_directions.pop(0)
-        else: 
-            print('Collecting data using ' + str(interval_wind) + 's time window...')
+            gust_directions.pop(0) 
+            
 
