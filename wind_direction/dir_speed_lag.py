@@ -97,7 +97,6 @@ print('Collecting data using ' + str(interval_wind) + 's time window...')
 
 gust_speeds = []
 gust_directions = []
-print('Collecting data using ' + str(interval_wind) + 's time window...')
 while True:
     t_end = time.time() + interval_wind # define time window
     while time.time() < t_end:
