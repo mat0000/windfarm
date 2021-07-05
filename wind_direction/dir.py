@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: MIT
 
 import time
+import datetime
 import busio
 import digitalio
 import board
@@ -21,10 +22,25 @@ mcp = MCP.MCP3008(spi, cs)
 chan = AnalogIn(mcp, MCP.P3)
 
 count = 0
-volts = [2.5, 1.5, 0.3, 0.6, 0.9, 2.0, 3.0, 2.9]
+volts = {
+    2.5: 0,
+    1.5: 45,
+    0.3: 90,
+    0.6: 135,
+    0.9: 180,
+    2.0: 225,
+    3.0: 270,
+    2.9: 315
+    }
+
+
+# t_end = time.time() + 5 # time window
+# while time.time() < t_end:
+
 while True:
-    direction = round(chan.voltage, 1)
-    if not direction in volts:
-        print('Unknown value: ' + str(direction))
+    voltage = voltage.append(round(chan.voltage, 1))
+
+    if not voltage in volts:
+        print('Unknown value: ' + str(direction) + ' ' + str(volts[voltage]))
     else:
-        print('Match: ' + str(direction))
+        print('Match: ' + + str(direction) + ' ' + str(volts[voltage]))
