@@ -4,6 +4,7 @@
 import time
 import datetime
 import math
+import statistics
 import busio
 import digitalio
 import board
