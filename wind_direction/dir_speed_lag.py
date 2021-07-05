@@ -104,26 +104,25 @@ while True:
         data = get_speed_dir()
         gust_speeds.append(data[0])
         gust_directions.append(data[1])
-        print('L: ' + str(len(gust_speeds)))
 
-    if(len(gust_speeds) == round((interval_wind / interval_gust), 0)):
-        # wind as average of gusts
-        wind_speed = round(statistics.mean(gust_speeds), 1)
+        if(len(gust_speeds) == round((interval_wind / interval_gust), 0)):
+            # wind as average of gusts
+            wind_speed = round(statistics.mean(gust_speeds), 1)
 
-        # gusts as max gust speed
-        gust_speed = max(gust_speeds)
+            # gusts as max gust speed
+            gust_speed = max(gust_speeds)
 
-        # wind direction as average angle over long time period
-        wind_direction = get_average(gust_directions)
+            # wind direction as average angle over long time period
+            wind_direction = get_average(gust_directions)
 
-        print(datetime.datetime.now().time())
-        print('Wind speed: ' + str(wind_speed) + ' kmh.')
-        print('Gust speed: ' + str(gust_speed) + ' kmh.')
-        print('Wind direction: ' + str(wind_direction) + ' degrees (' + directions[wind_direction] + ')')
+            print(datetime.datetime.now().time())
+            print('Wind speed: ' + str(wind_speed) + ' kmh.')
+            print('Gust speed: ' + str(gust_speed) + ' kmh.')
+            print('Wind direction: ' + str(wind_direction) + ' degrees (' + directions[wind_direction] + ')')
 
-        # remove first element from speed and direction
-        gust_speeds.pop(0)
-        gust_directions.pop(0)
-    else: 
-        print('Collecting data using ' + str(interval_wind) + 's time window...')
+            # remove first element from speed and direction
+            gust_speeds.pop(0)
+            gust_directions.pop(0)
+        else: 
+            print('Collecting data using ' + str(interval_wind) + 's time window...')
 
