@@ -25,6 +25,9 @@ interval_wind = 10 # wind measurement interval (in seconds)
 # map volt: angle 
 volts = {2.5: 0, 1.5: 45, 0.3: 90, 0.6: 135, 0.9: 180, 2.0: 225, 3.0: 270, 2.9: 315}
 
+# map angle: direction
+directions = {0: "NE", 45: "E", 90: "SE", 135: "S", 180: "SW", 225: "W", 270: "NW", 315: "N"}
+
 # function to get average angle (in degrees)
 def get_average(angles):
     sin_sum = 0.0
@@ -117,4 +120,4 @@ data = get_speed_gusts_dir()
 print(datetime.datetime.now().time())
 print('Wind speed: ' + str(data[0]) + ' kmh.')
 print('Gust speed: ' + str(data[1]) + ' kmh.')
-print('Wind direction: ' + str(data[2]) + " degrees.")
+print('Wind direction: ' + str(data[2]) + 'degrees (' + directions[data[2]] + ')')
