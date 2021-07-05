@@ -3,7 +3,6 @@
 
 import time
 import datetime
-import statistics
 import math
 import busio
 import digitalio
@@ -19,7 +18,6 @@ chan_direction = AnalogIn(mcp, MCP.P3)
 
 # setup 
 interval_gust = 2.5 # gust measurement interval (in seconds)
-interval_wind = 10 # wind measurement interval (in seconds)
 
 # map volt: angle 
 volts = {
@@ -58,14 +56,14 @@ def get_average(angles):
 
     return 0.0 if average == 360 else average
 
-
 def get_direction():
     t_end = time.time() + interval_gust # time window
-    data = []
+    directions = []
     while time.time() < t_end:
-        voltage = round(chan_direction.voltage, 1)
-        if voltage in volts:
-            data.append(volts[voltage])
-    return(get_average(data))
+        d_direction = round(chan_direction.voltage, 1)
+        if d_direction in volts:
+            directions.append(volts[d_direction])
+    direction = get_average(directions)
+    return(direction)
 
 print('Wind direction: ' + str(get_direction()) + " (degrees)")
