@@ -124,8 +124,9 @@ data = get_speed_gusts_dir()
 wind_speed = data[0]
 gust_speed = data[1]
 wind_direction = data[2]
-
-print(datetime.datetime.now().time())
+time_cur = datetime.datetime.now().time()
+time_cur = datetime.time_cur(seconds=round(time_cur.total_seconds()))
+print(str(time_cur))
 print('Wind speed: ' + str(wind_speed) + ' kmh.')
 print('Gust speed: ' + str(gust_speed) + ' kmh.')
 
