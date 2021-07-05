@@ -105,7 +105,7 @@ while True:
         gust_speeds.append(data[0])
         gust_directions.append(data[1])
 
-    if(len(gust_speed) == round((interval_wind / interval_gust), 0)):
+    if(len(gust_speeds) == round((interval_wind / interval_gust), 0)):
         # wind as average of gusts
         wind_speed = round(statistics.mean(gust_speeds), 1)
 
