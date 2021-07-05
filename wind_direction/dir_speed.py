@@ -26,7 +26,17 @@ chan = AnalogIn(mcp, MCP.P2)
 interval_gust = 2.5 # gust measurement interval (in seconds)
 interval_wind = 10 # wind measurement interval (in seconds)
 
-## Wind speed --------------------
+# volt: angle 
+volts = {
+    2.5: 0,
+    1.5: 45,
+    0.3: 90,
+    0.6: 135,
+    0.9: 180,
+    2.0: 225,
+    3.0: 270,
+    2.9: 315
+    }
 
 # make binary readout
 # digital inputs are 128, 65472 and occasionally some intermediates
@@ -80,16 +90,7 @@ def get_wind_speed(interval_wind, interval_gust):
 
 ## Wind direction --------------------
 
-volts = {
-    2.5: 0,
-    1.5: 45,
-    0.3: 90,
-    0.6: 135,
-    0.9: 180,
-    2.0: 225,
-    3.0: 270,
-    2.9: 315
-    }
+
 
 # function to get average angle (in degrees)
 def get_average(angles):
