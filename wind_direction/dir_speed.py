@@ -64,12 +64,13 @@ def convert_to_kmh(frequency):
     kmh = frequency * 0.34 * 3.6
     return(kmh)
 
-# function to get short time spin frequency (in Hz) and angle (degrees)
-def get_freq_dir():
+# function to get short time speed (in kmh) and angle (degrees)
+# short term readout (using interval_gust timw window)
+def get_speed_dir():
     wind_count = 0 # spin counter
     spin_prev = 0 # signal change 
     directions = [] # vector of temporary wind directions
-    t_end = time.time() + interval_gust # time window (gust)
+    t_end = time.time() + interval_gust # time window
     while time.time() < t_end:
         
         # detect signal change
@@ -84,8 +85,9 @@ def get_freq_dir():
 
     # NEED ADDITIONAL CALIBRATION (use fixed number of rotations)
     spin_frequency = wind_count / interval_gust / 2
+    speed = convert_to_kmh(spin_frequency)
     direction = get_average(directions)
-    return([spin_frequency, direction])
+    return([speed, direction])
 
 data = get_freq_dir()
-print('Spin freq: ' + str(data[0]) + 'Dir: ' + str(data[1]))
+print('Spin freq: ' + str(data[0]) + ' Dir: ' + str(data[1]))
