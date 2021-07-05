@@ -60,7 +60,7 @@ def get_average(angles):
 
 
 def get_direction():
-    t_end = time.time() + 3 # time window
+    t_end = time.time() + interval_gust # time window
     data = []
     while time.time() < t_end:
         voltage = round(chan_direction.voltage, 1)
@@ -68,4 +68,4 @@ def get_direction():
             data.append(volts[voltage])
     return(get_average(data))
 
-print('direction angle ' + str(get_direction()))
+print('Wind direction: ' + str(get_direction()) + " (degrees)")
