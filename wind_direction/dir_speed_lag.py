@@ -117,7 +117,11 @@ while True:
             print(datetime.datetime.now().time())
             print('Wind speed: ' + str(wind_speed) + ' kmh.')
             print('Gust speed: ' + str(gust_speed) + ' kmh.')
-            print('Wind direction: ' + str(wind_direction) + ' degrees (' + directions[wind_direction] + ')')
+
+            if wind_direction in directions:
+                print('Wind direction: ' + str(wind_direction) + ' degrees (' + directions[wind_direction] + ')')
+            else:
+                print('Wind direction: ' + str(wind_direction) + ' degrees.')
 
             # remove first element from speed and direction
             gust_speeds.pop(0)
