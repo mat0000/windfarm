@@ -83,7 +83,7 @@ def get_freq_dir():
             directions.append(volts[d_direction])
 
     # NEED ADDITIONAL CALIBRATION (use fixed number of rotations)
-    spin_frequency = wind_count / interval / 2
+    spin_frequency = wind_count / interval_gust / 2
     direction = get_average(directions)
     return([spin_frequency, direction])
 
