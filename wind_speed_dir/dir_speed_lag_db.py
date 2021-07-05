@@ -119,6 +119,37 @@ def get_speed_gusts_dir():
     # return vector: average wind speed, gust speed (kmh) and direction (angle)
     return([wind_speed, gust_speed, wind_direction])
 
+# insert into DB
+def insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction):
+    
+    sql = """INSERT INTO wind (date, wind_speed, gust, direction_dg)
+             VALUES(%s,%s,%s,%s);"""
+    conn = None
+    
+    try:
+        # read database configuration
+        params = config()
+        # connect to the PostgreSQL database
+        conn = psycopg2.connect(**params)
+        # create a new cursor
+        cur = conn.cursor()
+        # execute the INSERT statement
+        cur.execute(sql, (time_cur, wind_speed, gust_speed, wind_direction))
+        
+        # commit the changes to the database
+        conn.commit()
+        count = cursor.rowcount
+        print(count, "Record inserted successfully into mobile table")
+        
+        # close communication with the database
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+
+
 print('Collecting data using ' + str(interval_wind) + 's time window...')
 data = get_speed_gusts_dir()
 wind_speed = data[0]
@@ -135,3 +166,9 @@ if wind_direction in directions:
     print('Wind direction: ' + str(wind_direction) + ' degrees (' + directions[wind_direction] + ')')
 else:
     print('Wind direction: ' + str(wind_direction) + ' degrees.')
+
+if __name__ == '__main__':
+    # insert one vendor
+    insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction)
+
+
