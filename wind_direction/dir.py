@@ -70,7 +70,7 @@ def get_direction():
         if not voltage in volts:
             print('Unknown value: ' + str(voltage))
         else:
-            data = data.append(volts[voltage])
+            data.append(volts[voltage])
             print('Match: ' +  str(voltage) + ' ' + str(volts[voltage]))
     return(statistics.mean(data))
 
