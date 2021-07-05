@@ -89,5 +89,5 @@ def get_speed_dir():
     direction = get_average(directions)
     return([speed, direction])
 
-data = get_freq_dir()
+data = get_speed_dir()
 print('Spin freq: ' + str(data[0]) + ' Dir: ' + str(data[1]))
