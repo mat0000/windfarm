@@ -138,7 +138,7 @@ def insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction):
         
         # commit the changes to the database
         conn.commit()
-        count = cursor.rowcount
+        count = cur.rowcount
         print(count, "Record inserted successfully into mobile table")
         
         # close communication with the database
