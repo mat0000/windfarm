@@ -85,9 +85,9 @@ def get_speed_dir():
 
     # NEED ADDITIONAL CALIBRATION (use fixed number of rotations)
     spin_frequency = wind_count / interval_gust / 2
-    speed = convert_to_kmh(spin_frequency)
+    speed = round(convert_to_kmh(spin_frequency), 1)
     direction = get_average(directions)
     return([speed, direction])
 
 data = get_speed_dir()
-print('Spin freq: ' + str(data[0]) + ' Dir: ' + str(data[1]))
+print('Speed: ' + str(data[0]) + ' kmh. Direction: ' + str(data[1]) + " dg.")
