@@ -104,6 +104,7 @@ while True:
         data = get_speed_dir()
         gust_speeds.append(data[0])
         gust_directions.append(data[1])
+        print('L: ' + str(len(gust_speeds)))
 
     if(len(gust_speeds) == round((interval_wind / interval_gust), 0)):
         # wind as average of gusts
