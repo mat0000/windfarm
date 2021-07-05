@@ -20,7 +20,7 @@ mcp = MCP.MCP3008(spi, cs)
 # create an analog input channel on pin 0
 chan = AnalogIn(mcp, MCP.P3)
 
-read_min = 0
+read_min = 1000000
 read_max = 0
 
 while True:
