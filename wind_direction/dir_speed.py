@@ -64,7 +64,7 @@ def convert_to_kmh(frequency):
     kmh = frequency * 0.34 * 3.6
     return(kmh)
 
-# function to get short time speed (in kmh) and angle (degrees)
+# function to get wind speed (in kmh) and angle (degrees)
 # short term readout (using interval_gust timw window)
 def get_speed_dir():
     wind_count = 0 # spin counter
@@ -89,5 +89,30 @@ def get_speed_dir():
     direction = get_average(directions)
     return([speed, direction])
 
-data = get_speed_dir()
-print('Speed: ' + str(data[0]) + ' kmh. Direction: ' + str(data[1]) + " dg.")
+# function to get wind and gust speed (in kmh) and wind direction (degrees)
+def get_speed_gusts_dir():
+    gust_speeds = []
+    gust_directions = []
+    t_end = time.time() + interval_wind # define time window
+    while time.time() < t_end:
+        print(datetime.datetime.now().time())
+        data = get_speed_dir()
+        gust_speeds.append(data[0])
+        gust_directions.append(data[1])
+    
+    # wind as average of gusts
+    wind_speed = statistics.mean(gust_speeds)
+
+    # gusts as max gust speed
+    gust_speed = max(gust_speeds)
+
+    # wind direction as average angle over long time period
+    wind_direction = get_average(gust_directions)
+
+    # return vector: average wind speed, gust speed (kmh) and direction (angle)
+    return([wind_speed, gust_speed, wind_direction])
+
+data = get_speed_gusts_dir()
+print('Wind speed: ' + str(data[0]) + ' kmh.')
+print('Gust speed: ' + + str(data[1]) + ' kmh.')
+print('Wind direction: ' + str(data[2]) + " degrees.")
