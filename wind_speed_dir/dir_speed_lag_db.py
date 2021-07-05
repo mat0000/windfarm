@@ -97,28 +97,6 @@ def get_speed_dir():
     direction = get_average(directions)
     return([speed, direction])
 
-# function to get wind and gust speed (in kmh) and wind direction (degrees)
-def get_speed_gusts_dir():
-    gust_speeds = []
-    gust_directions = []
-    t_end = time.time() + interval_wind # define time window
-    while time.time() < t_end:
-        data = get_speed_dir()
-        gust_speeds.append(data[0])
-        gust_directions.append(data[1])
-    
-    # wind as average of gusts
-    wind_speed = round(statistics.mean(gust_speeds), 1)
-
-    # gusts as max gust speed
-    gust_speed = max(gust_speeds)
-
-    # wind direction as average angle over long time period
-    wind_direction = round(get_average(gust_directions))
-
-    # return vector: average wind speed, gust speed (kmh) and direction (angle)
-    return([wind_speed, gust_speed, wind_direction])
-
 # insert into DB
 def insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction):
     
@@ -149,26 +127,45 @@ def insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction):
         if conn is not None:
             conn.close()
 
-
+# collect data and insert into DB
 print('Collecting data using ' + str(interval_wind) + 's time window...')
-data = get_speed_gusts_dir()
-wind_speed = data[0]
-gust_speed = data[1]
-wind_direction = data[2]
-time_cur = datetime.datetime.now()
-time_cur = time_cur - datetime.timedelta(microseconds=time_cur.microsecond)
 
-print(str(time_cur))
-print('Wind speed: ' + str(wind_speed) + ' kmh.')
-print('Gust speed: ' + str(gust_speed) + ' kmh.')
+gust_speeds = []
+gust_directions = []
+while True:
+    t_end = time.time() + interval_wind # define time window
+    while time.time() < t_end:
+        data = get_speed_dir()
+        gust_speeds.append(data[0])
+        gust_directions.append(data[1])
 
-if wind_direction in directions:
-    print('Wind direction: ' + str(wind_direction) + ' degrees (' + directions[wind_direction] + ')')
-else:
-    print('Wind direction: ' + str(wind_direction) + ' degrees.')
+        if(len(gust_speeds) == round((interval_wind / interval_gust), 0)):
+            # wind as average of gusts
+            wind_speed = round(statistics.mean(gust_speeds), 1)
 
-if __name__ == '__main__':
-    # insert one vendor
-    insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction)
+            # gusts as max gust speed
+            gust_speed = max(gust_speeds)
 
+            # wind direction as average angle over long time period
+            wind_direction = round(get_average(gust_directions))
 
+            # time
+            time_cur = datetime.datetime.now()
+            time_cur = time_cur - datetime.timedelta(microseconds=time_cur.microsecond)
+
+            print('Wind speed: ' + str(wind_speed) + ' kmh.')
+            print('Gust speed: ' + str(gust_speed) + ' kmh.')
+
+            if wind_direction in directions:
+                print('Wind direction: ' + str(wind_direction) + ' degrees (' + directions[wind_direction] + ')')
+            else:
+                print('Wind direction: ' + str(wind_direction) + ' degrees.')
+
+            # remove first element from speed and direction
+            gust_speeds.pop(0)
+            gust_directions.pop(0) 
+
+            # insert into DB
+            if __name__ == '__main__':
+                insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction)
+            
