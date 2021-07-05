@@ -43,4 +43,4 @@ while True:
     if not voltage in volts:
         print('Unknown value: ' + str(voltage) + ' ' + str(volts[voltage]))
     else:
-        print('Match: ' + + str(voltage) + ' ' + str(volts[voltage]))
+        print('Match: ' +  str(voltage) + ' ' + str(volts[voltage]))
