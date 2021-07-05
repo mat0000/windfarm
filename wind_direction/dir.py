@@ -22,7 +22,6 @@ mcp = MCP.MCP3008(spi, cs)
 # create an analog input channel on pin 0
 chan = AnalogIn(mcp, MCP.P3)
 
-count = 0
 volts = {
     2.5: 0,
     1.5: 45,
@@ -34,10 +33,7 @@ volts = {
     2.9: 315
     }
 
-
-# t_end = time.time() + 5 # time window
-# while time.time() < t_end:
-
+# function to get average angle (in degrees)
 def get_average(angles):
     sin_sum = 0.0
     cos_sum = 0.0
@@ -62,6 +58,7 @@ def get_average(angles):
 
     return 0.0 if average == 360 else average
 
+
 def get_direction():
     t_end = time.time() + 3 # time window
     data = []
@@ -72,6 +69,6 @@ def get_direction():
         else:
             data.append(volts[voltage])
             print('Match: ' +  str(voltage) + ' ' + str(volts[voltage]))
-    return(statistics.mean(data))
+    return(get_average(data))
 
 print('direction angle ' + str(get_direction()))
