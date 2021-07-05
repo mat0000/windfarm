@@ -110,14 +110,22 @@ def get_speed_gusts_dir():
     gust_speed = max(gust_speeds)
 
     # wind direction as average angle over long time period
-    wind_direction = get_average(gust_directions)
+    wind_direction = round(get_average(gust_directions), 0)
 
     # return vector: average wind speed, gust speed (kmh) and direction (angle)
     return([wind_speed, gust_speed, wind_direction])
 
 print('Collecting data using ' + str(interval_wind) + 's time window...')
 data = get_speed_gusts_dir()
+wind_speed = data[0]
+gust_speed = data[1]
+wind_direction = data[2]
+
 print(datetime.datetime.now().time())
-print('Wind speed: ' + str(data[0]) + ' kmh.')
-print('Gust speed: ' + str(data[1]) + ' kmh.')
-print('Wind direction: ' + str(data[2]) + ' degrees (' + directions[data[2]] + ')')
+print('Wind speed: ' + str(wind_speed) + ' kmh.')
+print('Gust speed: ' + str(gust_speed) + ' kmh.')
+
+if wind_direction in directions:
+    print('Wind direction: ' + str(wind_direction) + ' degrees (' + directions[wind_direction] + ')')
+else:
+    print('Wind direction: ' + str(wind_direction) + ' degrees.')
