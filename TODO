@@ -1,4 +1,4 @@
-- database setup + connection and access details --mat
+- database setup + connection and access details + db dump--mat
 - wind speed + db entry --art
 - wind direction + db entry --art
 - db design --art + mat
@@ -6,20 +6,24 @@
 - new adc + wiring --mat
 - cam - photo or stream? where and how to store? history? --mat
 - temp + db entry --mat 
+- pi_temp --mat
 - auto pull + execution (CI/CD) --mat
-- execution schedule
+- execution schedule/method
 - DB backup, configuration, cluster?
+- what if db is off
 
 
 later:
 - api
 - website
-- graphs with history --art
+- slider graphs with history --art
 - garmin new api --art
 - new domain + https --mat
 - logistic and installation 
 - server command execution behaind the NAT --mat
-
+- db partitions
+- maybe db cluster/replication?
+- mongo DB/casandra
 
 #technologies to use:
 ###Python
