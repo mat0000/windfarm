@@ -99,6 +99,7 @@ def get_speed_dir():
     spin_frequency = wind_count / interval_gust / 2
     speed = round(convert_to_kmh(spin_frequency), 1)
     direction = get_average(directions)
+    time.sleep(0.1)
     return([speed, direction])
 
 # function to get wind and gust speed (in kmh) and wind direction (degrees)
@@ -120,6 +121,7 @@ def get_speed_gusts_dir():
     # wind direction as average angle over long time period
     wind_direction = round(get_average(gust_directions))
 
+    time.sleep(0.1)
     # return vector: average wind speed, gust speed (kmh) and direction (angle)
     return([wind_speed, gust_speed, wind_direction])
 
