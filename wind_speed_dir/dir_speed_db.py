@@ -121,7 +121,7 @@ def get_speed_gusts_dir():
     # wind direction as average angle over long time period
     wind_direction = round(get_average(gust_directions))
 
-    time.sleep(0.1)
+    time.sleep(0.2)
     # return vector: average wind speed, gust speed (kmh) and direction (angle)
     return([wind_speed, gust_speed, wind_direction])
 
