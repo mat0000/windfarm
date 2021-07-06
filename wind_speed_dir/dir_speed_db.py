@@ -94,6 +94,8 @@ def get_speed_dir():
         d_direction = round(chan_direction.voltage, 1)
         if d_direction in volts:
             directions.append(volts[d_direction])
+        
+        time.sleep(0.01)
 
     # NEED ADDITIONAL CALIBRATION (use fixed number of rotations)
     spin_frequency = wind_count / interval_gust / 2
