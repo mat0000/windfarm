@@ -64,7 +64,7 @@ def get_average(angles):
 # function to make binary readout
 # (digital inputs are 128, 65472 and occasionally some intermediates)
 def spin(value):
-    if(value == 65472):
+    if(value >  60000):
         return 1
     else:
         return 0
