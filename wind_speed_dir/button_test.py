@@ -18,6 +18,7 @@ def convert_to_kmh(frequency):
     return(kmh)
 
 def get_speed():
+    global wind_count
     wind_count = 0 # spin counter
     t_end = time.time() + interval_gust # time window
     while time.time() < t_end:
