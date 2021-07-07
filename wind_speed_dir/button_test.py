@@ -30,4 +30,4 @@ def get_speed():
     return(speed)
 
 while True:
-    print(str(get_speed() + "Hz"))
+    print(str(get_speed()) + "Hz")
