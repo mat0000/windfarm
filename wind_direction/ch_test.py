@@ -12,4 +12,5 @@ chan_direction = AnalogIn(mcp, MCP.P3)
 
 while True:
     print('V: ' + str(round(chan_direction.voltage, 2)))
+    print('V: ' + str(round(chan_direction.value, 2)))
     time.sleep(1)
