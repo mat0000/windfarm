@@ -72,4 +72,5 @@ def get_direction():
 
 while True:
     print('Wind direction: ' + str(get_direction()) + " (degrees)")
+    print('V: ' + str(round(chan_direction.voltage, 1)))
     time.sleep(1)
