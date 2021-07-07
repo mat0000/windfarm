@@ -33,6 +33,7 @@ volts = {
 
 # function to get average angle (in degrees)
 def get_average(angles):
+    
     sin_sum = 0.0
     cos_sum = 0.0
 
@@ -42,19 +43,22 @@ def get_average(angles):
         cos_sum += math.cos(r)
 
     flen = float(len(angles))
-    s = sin_sum / flen
-    c = cos_sum / flen
-    arc = math.degrees(math.atan(s / c))
-    average = 0.0
+    if(flen != 0):
+        s = sin_sum / flen
+        c = cos_sum / flen
+        arc = math.degrees(math.atan(s / c))
+        average = 0.0
 
-    if s > 0 and c > 0:
-        average = arc
-    elif c < 0:
-        average = arc + 180
-    elif s < 0 and c > 0:
-        average = arc + 360
+        if s > 0 and c > 0:
+            average = arc
+        elif c < 0:
+            average = arc + 180
+        elif s < 0 and c > 0:
+            average = arc + 360
 
-    return 0.0 if average == 360 else average
+        return 0.0 if average == 360 else average
+    else:
+        return 'NULL'
 
 def get_direction():
     t_end = time.time() + interval_gust # time window
