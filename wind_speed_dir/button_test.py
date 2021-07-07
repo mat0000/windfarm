@@ -1,7 +1,7 @@
 from gpiozero import Button
 import time
 
-wind_speed_sensor = Button(2)
+chan_speed = Button(2)
 wind_count = 0
 interval_gust = 4
 
@@ -9,6 +9,12 @@ def spin():
     global wind_count
     wind_count = wind_count + 1
     print("spin" + str(wind_count))
+
+def convert_to_kmh(frequency):
+    # m/s = Hz * 0.34 (from sensor documentation)
+    # kmh = m/s * 3.6
+    kmh = frequency * 0.34 * 3.6
+    return(kmh)
 
 def get_speed():
     wind_count = 0 # spin counter
