@@ -32,7 +32,7 @@ interval_wind = 8 # wind measurement interval (in seconds)
 volts = {2.5: 0, 1.5: 45, 0.3: 90, 0.6: 135, 0.9: 180, 2.0: 225, 3.0: 270, 2.9: 315}
 
 # map angle: direction
-directions = {0: "NE", 45: "E", 90: "SE", 135: "S", 180: "SW", 225: "W", 270: "NW", 315: "N"}
+directions_name = {0: "NE", 45: "E", 90: "SE", 135: "S", 180: "SW", 225: "W", 270: "NW", 315: "N"}
 
 wind_count = 0
 
@@ -180,6 +180,6 @@ while True:
         print('Wind direction: ' + str(wind_direction) + ' degrees.')
 
     # insert into DB
-    if __name__ == '__main__':
-        insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction)
+    # if __name__ == '__main__':
+    #     insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction)
             
