@@ -68,7 +68,6 @@ def get_average(angles):
 def spin():
     global wind_count
     wind_count = wind_count + 1
-    # print("spin" + str(wind_count))
 
 # function to convert frequency to kmh
 def convert_to_kmh(frequency):
@@ -80,6 +79,7 @@ def convert_to_kmh(frequency):
 # function to get wind speed (in kmh) and angle (degrees)
 # short term readout (using interval_gust timw window)
 def get_speed():
+    global wind_count
     wind_count = 0 # spin counter
     t_end = time.time() + interval_gust # time window
     while time.time() < t_end:
