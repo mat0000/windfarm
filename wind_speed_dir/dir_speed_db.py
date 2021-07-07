@@ -14,13 +14,15 @@ import digitalio
 import board
 import adafruit_mcp3xxx.mcp3008 as MCP
 from adafruit_mcp3xxx.analog_in import AnalogIn
+from gpiozero import Button
 
 # connection
 spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
 cs = digitalio.DigitalInOut(board.D5)
 mcp = MCP.MCP3008(spi, cs)
 chan_direction = AnalogIn(mcp, MCP.P3)
-chan_speed = AnalogIn(mcp, MCP.P2)
+# chan_speed = AnalogIn(mcp, MCP.P2)
+chan_speed = Button(2)
 
 # setup 
 interval_gust = 20 # gust measurement interval (in seconds)
@@ -31,6 +33,8 @@ volts = {2.5: 0, 1.5: 45, 0.3: 90, 0.6: 135, 0.9: 180, 2.0: 225, 3.0: 270, 2.9: 
 
 # map angle: direction
 directions = {0: "NE", 45: "E", 90: "SE", 135: "S", 180: "SW", 225: "W", 270: "NW", 315: "N"}
+
+wind_count = 0
 
 # function to get average angle (in degrees)
 def get_average(angles):
@@ -63,11 +67,17 @@ def get_average(angles):
 
 # function to make binary readout
 # (digital inputs are 128, 65472 and occasionally some intermediates)
-def spin(value):
-    if(value >  60000):
-        return 1
-    else:
-        return 0
+# def spin(value):
+#     if(value >  60000):
+#         return 1
+#     else:
+#         return 0
+
+def spin():
+    global wind_count
+    wind_count = wind_count + 1
+    # print("spin" + str(wind_count))
+
 
 # function to convert frequency to kmh
 def convert_to_kmh(frequency):
@@ -86,19 +96,20 @@ def get_speed_dir():
     while time.time() < t_end:
         
         # detect signal change
-        if(spin_prev != spin(chan_speed.value)): # two changes for 1 pulse!
-            wind_count = wind_count + 1
-            spin_prev = spin(chan_speed.value)
-        
+        # if(spin_prev != spin(chan_speed.value)): # two changes for 1 pulse!
+        #     wind_count = wind_count + 1
+        #     spin_prev = spin(chan_speed.value)
+        chan_speed.when_pressed = spin
+
         # detect wind direction
         d_direction = round(chan_direction.voltage, 1)
         if d_direction in volts:
             directions.append(volts[d_direction])
         
-        time.sleep(0.01)
+        time.sleep(0.1)
 
     # NEED ADDITIONAL CALIBRATION (use fixed number of rotations)
-    spin_frequency = wind_count / interval_gust / 2
+    spin_frequency = wind_count / interval_gust
     speed = round(convert_to_kmh(spin_frequency), 1)
     direction = get_average(directions)
     time.sleep(0.5)
