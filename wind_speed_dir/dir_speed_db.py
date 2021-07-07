@@ -111,10 +111,10 @@ def get_speed_gusts_dir():
         gust_speeds.append(get_speed())
 
         # detect wind direction
-        direction = round(chan_direction.voltage, 1)
-        if direction in volts:
-            directions.append(volts[direction])
-    
+        d_direction = round(chan_direction.voltage, 1)
+        if d_direction in volts:
+            directions.append(volts[d_direction])
+
     # wind as average of gusts
     wind_speed = round(statistics.mean(gust_speeds), 1)
 
