@@ -70,4 +70,6 @@ def get_direction():
     direction = get_average(directions)
     return(direction)
 
-print('Wind direction: ' + str(get_direction()) + " (degrees)")
+while True:
+    print('Wind direction: ' + str(get_direction()) + " (degrees)")
+    time.sleep(1)
