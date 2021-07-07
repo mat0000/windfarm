@@ -3,6 +3,7 @@ import time
 
 wind_speed_sensor = Button(2)
 wind_count = 0
+interval_gust = 4
 
 def spin():
     global wind_count
