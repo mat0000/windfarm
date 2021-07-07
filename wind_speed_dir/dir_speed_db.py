@@ -47,7 +47,7 @@ def get_average(angles):
         sin_sum += math.sin(r)
         cos_sum += math.cos(r)
 
-    if(len(flen) == 0):
+    if(len(angles) == 0):
         return 0.0
     else:
         flen = float(len(angles))
