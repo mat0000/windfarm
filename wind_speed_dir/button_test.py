@@ -9,6 +9,18 @@ def spin():
     wind_count = wind_count + 1
     print("spin" + str(wind_count))
 
-while True:
-    wind_speed_sensor.when_pressed = spin
+def get_speed():
+    wind_count = 0 # spin counter
+    t_end = time.time() + interval_gust # time window
+    while time.time() < t_end:
+        chan_speed.when_pressed = spin
+        time.sleep(0.1)
+
+    # NEED ADDITIONAL CALIBRATION (use fixed number of rotations)
+    spin_frequency = wind_count / interval_gust
+    speed = round(convert_to_kmh(spin_frequency), 1)
     time.sleep(0.1)
+    return(speed)
+
+while True:
+    print(str(get_speed() + "Hz"))
