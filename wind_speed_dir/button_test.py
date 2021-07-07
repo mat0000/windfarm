@@ -9,6 +9,7 @@ def spin():
     global wind_count
     wind_count = wind_count + 1
     print("spin" + str(wind_count))
+    return(spin)
 
 def convert_to_kmh(frequency):
     # m/s = Hz * 0.34 (from sensor documentation)
