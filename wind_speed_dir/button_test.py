@@ -1,6 +1,6 @@
 from gpiozero import Button
 
-wind_speed_sensor = Button(8)
+wind_speed_sensor = Button(2)
 wind_count = 0
 
 def spin():
