@@ -23,6 +23,7 @@ mcp = MCP.MCP3008(spi, cs)
 chan_direction = AnalogIn(mcp, MCP.P3)
 # chan_speed = AnalogIn(mcp, MCP.P2)
 chan_speed = Button(2)
+wind_count = 0
 
 # setup 
 interval_gust = 2 # gust measurement interval (in seconds)
@@ -33,8 +34,6 @@ volts = {2.5: 0, 1.5: 45, 0.3: 90, 0.6: 135, 0.9: 180, 2.0: 225, 3.0: 270, 2.9: 
 
 # map angle: direction
 directions_name = {0: "NE", 45: "E", 90: "SE", 135: "S", 180: "SW", 225: "W", 270: "NW", 315: "N"}
-
-wind_count = 0
 
 # function to get average angle (in degrees)
 def get_average(angles):
