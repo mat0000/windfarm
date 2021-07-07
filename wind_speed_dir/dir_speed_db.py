@@ -88,27 +88,18 @@ def convert_to_kmh(frequency):
 
 # function to get wind speed (in kmh) and angle (degrees)
 # short term readout (using interval_gust timw window)
-def get_speed_dir():
+def get_speed():
     wind_count = 0 # spin counter
     t_end = time.time() + interval_gust # time window
     while time.time() < t_end:
-        
-        # detect signal change
-        # if(spin_prev != spin(chan_speed.value)): # two changes for 1 pulse!
-        #     wind_count = wind_count + 1
-        #     spin_prev = spin(chan_speed.value)
         chan_speed.when_pressed = spin
-
-    
-        
         time.sleep(0.1)
 
     # NEED ADDITIONAL CALIBRATION (use fixed number of rotations)
     spin_frequency = wind_count / interval_gust
     speed = round(convert_to_kmh(spin_frequency), 1)
-    direction = get_average(directions)
-    time.sleep(0.5)
-    return([speed, direction])
+    time.sleep(0.1)
+    return(speed)
 
 # function to get wind and gust speed (in kmh) and wind direction (degrees)
 def get_speed_gusts_dir():
@@ -116,8 +107,8 @@ def get_speed_gusts_dir():
     directions = []
     t_end = time.time() + interval_wind # define time window
     while time.time() < t_end:
-        data = get_speed_dir()
-        gust_speeds.append(data[0])
+  
+        gust_speeds.append(get_speed())
 
         # detect wind direction
         direction = round(chan_direction.voltage, 1)
