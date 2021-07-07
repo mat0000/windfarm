@@ -22,7 +22,7 @@ cs = digitalio.DigitalInOut(board.D5)
 mcp = MCP.MCP3008(spi, cs)
 chan_direction = AnalogIn(mcp, MCP.P3)
 # chan_speed = AnalogIn(mcp, MCP.P2)
-chan_speed = Button(2)
+chan_speed = Button(17)
 wind_count = 0
 
 # setup 

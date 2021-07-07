@@ -1,7 +1,7 @@
 from gpiozero import Button
 import time
 
-chan_speed = Button(2)
+chan_speed = Button(17)
 wind_count = 0
 interval_gust = 4
 
