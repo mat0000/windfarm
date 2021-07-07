@@ -48,36 +48,25 @@ def get_average(angles):
         cos_sum += math.cos(r)
 
     flen = float(len(angles))
-    if(flen != 0):
-        s = sin_sum / flen
-        c = cos_sum / flen
-        arc = math.degrees(math.atan(s / c))
-        average = 0.0
+    s = sin_sum / flen
+    c = cos_sum / flen
+    arc = math.degrees(math.atan(s / c))
+    average = 0.0
 
-        if s > 0 and c > 0:
-            average = arc
-        elif c < 0:
-            average = arc + 180
-        elif s < 0 and c > 0:
-            average = arc + 360
+    if s > 0 and c > 0:
+        average = arc
+    elif c < 0:
+        average = arc + 180
+    elif s < 0 and c > 0:
+        average = arc + 360
 
-        return 0.0 if average == 360 else average
-    else:
-        return 'NULL'
-
-# function to make binary readout
-# (digital inputs are 128, 65472 and occasionally some intermediates)
-# def spin(value):
-#     if(value >  60000):
-#         return 1
-#     else:
-#         return 0
+    return 0.0 if average == 360 else average
+    
 
 def spin():
     global wind_count
     wind_count = wind_count + 1
     # print("spin" + str(wind_count))
-
 
 # function to convert frequency to kmh
 def convert_to_kmh(frequency):
