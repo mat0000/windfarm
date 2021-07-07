@@ -166,7 +166,7 @@ while True:
     print('Wind speed: ' + str(wind_speed) + ' kmh.')
     print('Gust speed: ' + str(gust_speed) + ' kmh.')
 
-    if wind_direction in directions:
+    if wind_direction in directions_name:
         print('Wind direction: ' + str(wind_direction) + ' degrees (' + directions_name[wind_direction] + ')')
     else:
         print('Wind direction: ' + str(wind_direction) + ' degrees.')
