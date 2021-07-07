@@ -25,8 +25,8 @@ chan_direction = AnalogIn(mcp, MCP.P3)
 chan_speed = Button(2)
 
 # setup 
-interval_gust = 20 # gust measurement interval (in seconds)
-interval_wind = 60 # wind measurement interval (in seconds)
+interval_gust = 2 # gust measurement interval (in seconds)
+interval_wind = 8 # wind measurement interval (in seconds)
 
 # map volt: angle 
 volts = {2.5: 0, 1.5: 45, 0.3: 90, 0.6: 135, 0.9: 180, 2.0: 225, 3.0: 270, 2.9: 315}
@@ -90,8 +90,6 @@ def convert_to_kmh(frequency):
 # short term readout (using interval_gust timw window)
 def get_speed_dir():
     wind_count = 0 # spin counter
-    spin_prev = 0 # signal change 
-    directions = [] # vector of temporary wind directions
     t_end = time.time() + interval_gust # time window
     while time.time() < t_end:
         
@@ -101,10 +99,7 @@ def get_speed_dir():
         #     spin_prev = spin(chan_speed.value)
         chan_speed.when_pressed = spin
 
-        # detect wind direction
-        d_direction = round(chan_direction.voltage, 1)
-        if d_direction in volts:
-            directions.append(volts[d_direction])
+    
         
         time.sleep(0.1)
 
@@ -118,12 +113,16 @@ def get_speed_dir():
 # function to get wind and gust speed (in kmh) and wind direction (degrees)
 def get_speed_gusts_dir():
     gust_speeds = []
-    gust_directions = []
+    directions = []
     t_end = time.time() + interval_wind # define time window
     while time.time() < t_end:
         data = get_speed_dir()
         gust_speeds.append(data[0])
-        gust_directions.append(data[1])
+
+        # detect wind direction
+        direction = round(chan_direction.voltage, 1)
+        if direction in volts:
+            directions.append(volts[direction])
     
     # wind as average of gusts
     wind_speed = round(statistics.mean(gust_speeds), 1)
@@ -132,7 +131,7 @@ def get_speed_gusts_dir():
     gust_speed = max(gust_speeds)
 
     # wind direction as average angle over long time period
-    wind_direction = round(get_average(gust_directions))
+    wind_direction = round(get_average(directions))
 
     time.sleep(0.5)
     # return vector: average wind speed, gust speed (kmh) and direction (angle)
