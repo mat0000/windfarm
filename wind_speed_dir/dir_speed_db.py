@@ -9,6 +9,7 @@ import time
 import datetime
 import math
 import statistics
+import smbus
 import busio
 import digitalio
 import board
