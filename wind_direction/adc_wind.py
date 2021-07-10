@@ -9,6 +9,6 @@ lsb = 0.012890625
 
 while True:
 	adc=bus.read_byte_data(DEVICE_ADDRESS, 0)
-	print adc*lsb, "V"
+	print(str(adc*lsb), "V")
 	time.sleep(1)
 
