@@ -2,6 +2,9 @@ import os
 import glob
 import time
 import datetime
+import psycopg2
+
+date_ = datetime.datetime.now()
 
 # These tow lines mount the device:
 os.system('modprobe w1-gpio')
@@ -34,10 +37,27 @@ def read_temp():
         # Read the temperature .
         temp_string = lines[1][equals_pos+2:]
         temp_c = float(temp_string) / 1000.0
-        #temp_f = temp_c * 9.0 / 5.0 + 32.0
         return temp_c
-        #, temp_f
  
-print(datetime.datetime.now().isoformat()) 
-print('%3.1f'% read_temp())
+def connect_db():
+    host='192.168.10.108'
+    port=5432
+    user='windfarm_user'
+    password='wow,ostro'
+    dbname='windfarm'
+    return psycopg2.connect('host=192.168.10.108 port=5432 user=windfarm_user password=wow,ostro dbname=windfarm')
+
+conn = connect_db()
+cur = conn.cursor()
+temp = ('%3.1f'% read_temp())
+date_ = date_ - datetime.timedelta(microseconds=date_.microsecond)
+val = (date_, temp)
+que = """insert into temp values (%s, %s)"""
+cur.execute(que, val)
+conn.commit()
+cur.close
+conn.close
+
+print(date_) 
+print(temp)
 
