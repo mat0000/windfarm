@@ -4,11 +4,10 @@
 - db design --art + mat
 - remove sudo
 - watchdogs rasp + programs?
-
+- remove passwords from repo
 - new adc + wiring --mat
 - cam - photo or stream? where and how to store? history? --mat
-- temp + db entry --mat 
-- pi_temp --mat
+- temp clean code --mat 
 - auto pull + execution (CI/CD) --mat
 - execution schedule/method
 - DB backup, configuration, cluster?
