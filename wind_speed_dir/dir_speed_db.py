@@ -18,10 +18,19 @@ from adafruit_mcp3xxx.analog_in import AnalogIn
 from gpiozero import Button
 
 # connection
-spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
-cs = digitalio.DigitalInOut(board.D5)
-mcp = MCP.MCP3008(spi, cs)
-chan_direction = AnalogIn(mcp, MCP.P3)
+# spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
+# cs = digitalio.DigitalInOut(board.D5)
+# mcp = MCP.MCP3008(spi, cs)
+# chan_direction = AnalogIn(mcp, MCP.P3)
+
+bus = smbus.SMBus(1)
+DEVICE_ADDRESS = 0x48
+lsb = 0.012890625
+
+def direction_voltage():
+	adc=bus.read_byte_data(DEVICE_ADDRESS, 0)
+	return adc
+
 # chan_speed = AnalogIn(mcp, MCP.P2)
 chan_speed = Button(17)
 wind_count = 0
@@ -103,7 +112,7 @@ def get_speed_gusts_dir():
         gust_speeds.append(get_speed())
 
         # detect wind direction
-        d_direction = round(chan_direction.voltage, 1)
+        d_direction = round(direction_voltage(), 1)
         if d_direction in volts:
             directions.append(volts[d_direction])
 
