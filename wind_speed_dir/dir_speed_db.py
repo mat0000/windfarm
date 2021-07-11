@@ -8,7 +8,7 @@ from config import config
 import time
 import datetime
 import math
-import statistics
+import numpy
 import smbus
 from gpiozero import Button
 
@@ -25,8 +25,8 @@ chan_speed = Button(17)
 wind_count = 0
 
 # setup 
-interval_gust = 20 # gust measurement interval (in seconds)
-interval_wind = 60 # wind measurement interval (in seconds)
+interval_gust = 2 # gust measurement interval (in seconds)
+interval_wind = 8 # wind measurement interval (in seconds)
 
 # map volt: angle 
 volts = {2.5: 0, 1.5: 45, 0.3: 90, 0.6: 135, 0.9: 180, 2.0: 225, 3.0: 270, 2.9: 315}
@@ -46,7 +46,7 @@ def get_average(angles):
         cos_sum += math.cos(r)
 
     if(len(angles) == 0):
-        return 0.0
+        return float("nan")
     else:
         flen = float(len(angles))
         s = sin_sum / flen
@@ -99,6 +99,7 @@ def get_gust_speed_direction():
     speed = round(convert_to_kmh(spin_frequency), 1)
     
     # average direction
+    directions = [x for x in directions if math.isnan(x) == False]
     wind_direction = round(get_average(directions))
     return([speed, wind_direction])
 
@@ -113,7 +114,7 @@ def get_speed_dir():
         directions.append(data[1])
 
     # wind as average of gusts
-    wind_speed = round(statistics.mean(gust_speeds), 1)
+    wind_speed = round(numpy.mean(gust_speeds), 1)
 
     # gusts as max gust speed
     gust_speed = max(gust_speeds)
