@@ -83,6 +83,7 @@ def get_speed():
     t_end = time.time() + interval_gust # time window
     while time.time() < t_end:
         chan_speed.when_pressed = spin
+        print(str(wind_count))
         # time.sleep(0.001)
 
     # NEED ADDITIONAL CALIBRATION (use fixed number of rotations)
