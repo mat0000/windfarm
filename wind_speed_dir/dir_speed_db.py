@@ -17,19 +17,13 @@ import adafruit_mcp3xxx.mcp3008 as MCP
 from adafruit_mcp3xxx.analog_in import AnalogIn
 from gpiozero import Button
 
-# connection
-# spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
-# cs = digitalio.DigitalInOut(board.D5)
-# mcp = MCP.MCP3008(spi, cs)
-# chan_direction = AnalogIn(mcp, MCP.P3)
-
 bus = smbus.SMBus(1)
 DEVICE_ADDRESS = 0x48
 lsb = 0.012890625
 
 def direction_voltage():
-	adc=bus.read_byte_data(DEVICE_ADDRESS, 0)
-	return adc
+    adc = bus.read_i2c_block_data(DEVICE_ADDRESS, 0, 3)
+    return(adc[2] * lsb) ### + lsb can be added
 
 # chan_speed = AnalogIn(mcp, MCP.P2)
 chan_speed = Button(17)
