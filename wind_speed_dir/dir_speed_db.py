@@ -65,6 +65,7 @@ def get_average(angles):
     
 
 def spin():
+    # two counts per single spin. 
     global wind_count
     wind_count = wind_count + 1
 
@@ -77,32 +78,39 @@ def convert_to_kmh(frequency):
 
 # function to get wind speed (in kmh) and angle (degrees)
 # short term readout (using interval_gust timw window)
-def get_speed():
+def get_gust_speed_direction():
     global wind_count
     wind_count = 0 # spin counter
+    directions = [] # directions vector
     t_end = time.time() + interval_gust # time window
     while time.time() < t_end:
+        
+        # detect wind speed
         chan_speed.when_pressed = spin
+        
+        # detect wind direction
+        d_direction = round(direction_voltage(), 1)
+        if d_direction in volts:
+            directions.append(volts[d_direction])
         time.sleep(0.001)
 
     # NEED ADDITIONAL CALIBRATION (use fixed number of rotations)
     spin_frequency = wind_count / interval_gust
     speed = round(convert_to_kmh(spin_frequency), 1)
-    return(speed)
+    
+    # average direction
+    wind_direction = round(get_average(directions))
+    return([speed, wind_direction])
 
 # function to get wind and gust speed (in kmh) and wind direction (degrees)
-def get_speed_gusts_dir():
+def get_speed_dir():
     gust_speeds = []
     directions = []
     t_end = time.time() + interval_wind # define time window
     while time.time() < t_end:
-  
-        gust_speeds.append(get_speed())
-
-        # detect wind direction
-        d_direction = round(direction_voltage(), 1)
-        if d_direction in volts:
-            directions.append(volts[d_direction])
+        data = get_gust_speed_direction()
+        gust_speeds.append(data[0])
+        directions.append(data[1])
 
     # wind as average of gusts
     wind_speed = round(statistics.mean(gust_speeds), 1)
@@ -113,7 +121,7 @@ def get_speed_gusts_dir():
     # wind direction as average angle over long time period
     wind_direction = round(get_average(directions))
 
-    time.sleep(0.5)
+    # time.sleep(0.5)
     # return vector: average wind speed, gust speed (kmh) and direction (angle)
     return([wind_speed, gust_speed, wind_direction])
 
@@ -151,7 +159,7 @@ def insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction):
 print('Collecting data using ' + str(interval_wind) + 's time window...')
 
 while True:
-    data = get_speed_gusts_dir()
+    data = get_speed_dir()
     wind_speed = data[0]
     gust_speed = data[1]
     wind_direction = data[2]
