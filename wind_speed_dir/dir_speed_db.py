@@ -107,7 +107,6 @@ def get_speed_gusts_dir():
 
         # detect wind direction
         d_direction = round(direction_voltage(), 1)
-        print(str(d_direction))
         if d_direction in volts:
             directions.append(volts[d_direction])
 
