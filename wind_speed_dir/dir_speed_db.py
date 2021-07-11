@@ -11,11 +11,11 @@ import math
 import statistics
 import smbus
 # import busio
-import digitalio
+# import digitalio
 # import board
 # import adafruit_mcp3xxx.mcp3008 as MCP
 # from adafruit_mcp3xxx.analog_in import AnalogIn
-# from gpiozero import Button
+from gpiozero import Button
 
 bus = smbus.SMBus(1)
 DEVICE_ADDRESS = 0x48
