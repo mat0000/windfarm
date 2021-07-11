@@ -83,12 +83,11 @@ def get_speed():
     t_end = time.time() + interval_gust # time window
     while time.time() < t_end:
         chan_speed.when_pressed = spin
-        time.sleep(0.1)
+        time.sleep(0.01)
 
     # NEED ADDITIONAL CALIBRATION (use fixed number of rotations)
     spin_frequency = wind_count / interval_gust
     speed = round(convert_to_kmh(spin_frequency), 1)
-    # time.sleep(0.1)
     return(speed)
 
 # function to get wind and gust speed (in kmh) and wind direction (degrees)
