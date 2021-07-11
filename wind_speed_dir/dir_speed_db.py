@@ -83,7 +83,7 @@ def get_speed():
     t_end = time.time() + interval_gust # time window
     while time.time() < t_end:
         chan_speed.when_pressed = spin
-        # time.sleep(0.1)
+        time.sleep(0.1)
 
     # NEED ADDITIONAL CALIBRATION (use fixed number of rotations)
     spin_frequency = wind_count / interval_gust
