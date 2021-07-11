@@ -12,6 +12,6 @@ def direction_voltage():
 while True:
 	v = direction_voltage()
 	with open('log.txt','a') as f:
-		f.write('Current readout: ' + str(v) + 'n')
+		f.write('Current readout: ' + str(v) + '\n')
 	print(str(v) + 'V')
 	time.sleep(1)
