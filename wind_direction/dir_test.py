@@ -14,4 +14,4 @@ while True:
 	with open('log.txt','a') as f:
 		f.write(str(v) + '\n')
 	print(str(v) + 'V')
-	time.sleep(1)
+	time.sleep(0.1)
