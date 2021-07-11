@@ -12,7 +12,7 @@ def direction_voltage():
 	return (adc[2] * lsb) ### + lsb can be added
 
 while True:
-	with open('log.txt','a') as f:
-        f.write("Current readout: " + str(direction_voltage()))
+	# with open('log.txt','a') as f:
+    #     f.write("Current readout: " + str(direction_voltage()))
 	print(str(direction_voltage()) + 'V')
     time.sleep(1)
