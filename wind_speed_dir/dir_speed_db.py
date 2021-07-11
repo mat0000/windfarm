@@ -25,8 +25,8 @@ chan_speed = Button(17)
 wind_count = 0
 
 # setup 
-interval_gust = 2 # gust measurement interval (in seconds)
-interval_wind = 8 # wind measurement interval (in seconds)
+interval_gust = 20 # gust measurement interval (in seconds)
+interval_wind = 60 # wind measurement interval (in seconds)
 
 # map volt: angle 
 volts = {2.5: 0, 1.5: 45, 0.3: 90, 0.6: 135, 0.9: 180, 2.0: 225, 3.0: 270, 2.9: 315}
