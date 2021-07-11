@@ -15,4 +15,4 @@ while True:
 	with open('log.txt','a') as f:
         print(str(direction_voltage()) + "V")
         f.write("Current readout: " + str(direction_voltage()))
-	time.sleep(1 )
+	time.sleep(1)
