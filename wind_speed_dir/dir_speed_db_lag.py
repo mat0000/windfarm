@@ -177,7 +177,7 @@ while True:
         wind_directions.append(data[2])
 
         # wind as average of gusts
-        wind_speed = round(math.mean(gust_speeds), 1)
+        wind_speed = round(numpy.mean(gust_speeds), 1)
 
         # gusts as max gust speed
         gust_speed = max(gust_speeds)
