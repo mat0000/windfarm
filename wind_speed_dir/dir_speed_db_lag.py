@@ -170,7 +170,7 @@ while True:
     while time.time() < t_end:
         data = get_speed_dir()
         gust_speeds.append(data[0])
-        gust_directions.append(data[1])
+        wind_directions.append(data[1])
 
         wind_speeds.append(data[0])
         gust_speeds.append(data[1])
