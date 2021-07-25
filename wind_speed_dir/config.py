@@ -2,7 +2,7 @@
 from configparser import ConfigParser
 
 
-def config(filename='database.ini', section='postgresql'):
+def config(filename='/home/pi/windfarm/wind_speed_dir/database.ini', section='postgresql'):
     # create a parser
     parser = ConfigParser()
     # read config file
