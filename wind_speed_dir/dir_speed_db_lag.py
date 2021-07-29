@@ -80,10 +80,12 @@ def convert_to_kmh(frequency):
 
 # function to get wind speed (in kmh) and angle (degrees)
 # short term readout (using interval_gust timw window)
+lag_speeds = []
+lag_directions = []
 def get_gust_speed_direction():
     global wind_count
     wind_count = 0 # spin counter
-    directions = [] # directions vector
+    directions = []
     t_end = time.time() + interval_gust # time window
     while time.time() < t_end:
         
@@ -104,6 +106,8 @@ def get_gust_speed_direction():
     directions = [x for x in directions if math.isnan(x) == False]
     wind_direction = round(get_average(directions))
     return([speed, wind_direction])
+
+
 
 # function to get wind and gust speed (in kmh) and wind direction (degrees)
 def get_speed_dir():
@@ -161,9 +165,7 @@ def insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction):
 # collect data and insert into DB
 print('Collecting data using ' + str(interval_wind) + 's time window...')
 
-wind_speeds = []
-gust_speeds = []
-wind_directions = []
+
 
 while True:
     t_end = time.time() + interval_lag # define time window
