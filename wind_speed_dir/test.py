@@ -25,8 +25,8 @@ chan_speed = Button(17)
 wind_count = 0
 
 # setup 
-interval_wind = 50 # wind measurement interval (in seconds)
-interval_gust = interval_wind / 3 # gust interval as 1/3 wind (that should work for interval_wind around 60s)
+interval_gust = 20 # gust measurement interval (in seconds)
+interval_wind = 60 # wind measurement interval (in seconds)
 
 # map volt: angle 
 volts = {2.5: 0, 1.5: 45, 0.3: 90, 0.6: 135, 0.9: 180, 2.0: 225, 3.0: 270, 2.9: 315}
@@ -157,8 +157,7 @@ def insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction):
             conn.close()
 
 # collect data and insert into DB
-print('Collecting data using ' + str(interval_wind) + 's time window (' + str(round(interval_gust, 1)) + 's for gust)...')
-
+print('Collecting data using ' + str(interval_wind) + 's time window...')
 
 data = get_speed_dir()
 wind_speed = data[0]
@@ -177,6 +176,6 @@ else:
     print('Wind direction: ' + str(wind_direction) + ' degrees.')
 
 # insert into DB
-if __name__ == '__main__':
-    insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction)
+# if __name__ == '__main__':
+#     insert_speed_gust_dir(time_cur, wind_speed, gust_speed, wind_direction)
             
